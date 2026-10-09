@@ -48,7 +48,7 @@ bridge:
     scan_angle_max: 135.0 # 135°
 
     # map parameters
-    map_path: 'maps/Spielberg_map'
+    map_path: 'maps/Nuerburgring_map'
     map_img_ext: '.png'
 
     # car parameters and scale
@@ -57,17 +57,17 @@ bridge:
     scale: 1.0
 
     # number of agents, currently only supports 1 or 2
-    num_agent: 2
+    num_agent: 1
 
     # ego starting pose on map
-    sx: -67.478178
-    sy: 54.307156
-    stheta: 0.0
+    sx: 25.202644
+    sy: 35.041849
+    stheta: -0.160208
 
     # opp starting pose on map (~10m ahead of ego on raceline)
-    sx1: -57.714956
-    sy1: 53.597275
-    stheta1: -0.135
+    sx1: 28.507206
+    sy1: 27.534226
+    stheta1: -2.100892
 
     # teleop
     kb_teleop: True

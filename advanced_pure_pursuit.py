@@ -25,10 +25,28 @@ class AdvancedPurePursuit(Node):
         self.last_steering = 0.0
         self.last_time = None
         
-        # Load the raceline
-        self.raceline_path = '/home/punit-raveendran/Downloads/f1tenth-main/install/f1tenth_gym_ros/share/f1tenth_gym_ros/maps/raceline.csv'
+        # Dynamically detect active map from sim.yaml or parameter
+        import yaml, os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        sim_yaml_path = os.path.join(script_dir, 'src', 'f1tenth_gym_ros', 'config', 'sim.yaml')
+        default_raceline = os.path.join(script_dir, 'src', 'f1tenth_gym_ros', 'maps', 'raceline.csv')
+        
+        if os.path.exists(sim_yaml_path):
+            try:
+                with open(sim_yaml_path, 'r') as yf:
+                    sdata = yaml.safe_load(yf)
+                    mpath = sdata.get('bridge', {}).get('ros__parameters', {}).get('map_path', '')
+                    if 'Nuerburgring' in mpath:
+                        default_raceline = os.path.join(script_dir, 'src', 'f1tenth_gym_ros', 'maps', 'Nuerburgring_map_raceline.csv')
+                    elif 'Spielberg' in mpath:
+                        default_raceline = os.path.join(script_dir, 'src', 'f1tenth_gym_ros', 'maps', 'Spielberg_map_raceline.csv')
+            except Exception:
+                pass
+
+        self.declare_parameter('raceline_path', default_raceline)
+        self.raceline_path = self.get_parameter('raceline_path').value
         self.waypoints = self.load_raceline(self.raceline_path)
-        self.get_logger().info(f'Loaded {len(self.waypoints)} waypoints for Advanced Pure Pursuit!')
+        self.get_logger().info(f'Loaded {len(self.waypoints)} waypoints from {os.path.basename(self.raceline_path)} for Advanced Pure Pursuit!')
 
         # Publishers & Subscribers
         self.drive_pub  = self.create_publisher(AckermannDriveStamped, '/drive', 10)

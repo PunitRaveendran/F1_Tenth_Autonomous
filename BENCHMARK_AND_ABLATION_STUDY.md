@@ -203,3 +203,32 @@ python3 advanced_pure_pursuit.py
 # Or Run Follow The Gap Node
 python3 basic_driver.py
 ```
+
+---
+
+## 6. Multi-Track Benchmark: Nürburgring Circuit
+
+To evaluate controller generalization across different track topologies, the exact same controllers were evaluated on the **Nürburgring circuit** (570m length, 2,190 waypoints, flowing high-speed sweeping corners).
+
+### Nürburgring Leaderboard
+
+| Rank | Controller Variant | Category | Lap Time (s) | Δ vs Baseline | Avg Speed (m/s) | Top Speed (m/s) | $\text{RMSE}_{cte}$ (m) | Max CTE (m) | Steering Chatter $\sigma_{\dot{\delta}}$ |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 🥇 | **Stanley (Optuna Tuned)** | Non-Linear Feedback + Feedforward | **55.22s** | **-25.36s** | **7.98** | **8.40** | 0.362 | 0.538 | 0.0110 rad/s |
+| 🥈 | **LQR (Discrete State Feedback)** | Optimal Control (DARE) | **62.99s** | **-17.59s** | 6.96 | 7.60 | **0.068** | **0.134** | 0.0218 rad/s |
+| 🥉 | **Advanced Pure Pursuit** | Adaptive $L(v)$ + Interp | **66.56s** | **-14.02s** | 6.61 | 7.20 | 0.139 | 0.392 | **0.0010 rad/s** |
+| 4 | **Stanley (Baseline Untuned)** | Geometric Feedback ($k=1.5$) | **69.63s** | **-10.95s** | 6.26 | 6.80 | 0.344 | 0.532 | 0.0103 rad/s |
+| 5 | **Pure Pursuit (Speed Profiled)** | Geometric ($L=1.5m$) | **70.35s** | **-10.23s** | 6.25 | 6.80 | 0.106 | 0.284 | 0.0023 rad/s |
+| 6 | **Pure Pursuit (Baseline)** | Fixed $L=1.6m, v=5.5m/s$ | **80.58s** | **0.00s** | 5.48 | 5.50 | 0.117 | 0.449 | 0.0015 rad/s |
+
+### Multi-Track Generalization Insights:
+1. **Stanley maintains speed supremacy across both circuits:** Tuned Stanley is 25.36s faster than baseline on Nürburgring and 20.29s faster on Spielberg.
+2. **LQR holds unmatched cross-track consistency:** On both Spielberg ($\text{RMSE}_{cte} = 0.066m$) and Nürburgring ($\text{RMSE}_{cte} = 0.068m$), LQR tracks the centerline within under $7\text{cm}$ average error, confirming that state-space optimal control is universally the most accurate trajectory tracker.
+3. **Advanced Pure Pursuit retains minimum steering chatter:** The circle-line interpolation yields the smoothest steering rate on both tracks ($\sigma_{\dot{\delta}} \le 0.001\text{ rad/s}$).
+
+To reproduce the Nürburgring benchmark:
+```bash
+python3 benchmark_nuerburgring.py
+```
+*(Artifacts saved to `benchmark_nuerburgring_results.csv` and `benchmark_nuerburgring_summary.png`)*
+
