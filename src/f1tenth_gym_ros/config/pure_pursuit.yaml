@@ -1,0 +1,27 @@
+pure_pursuit_node:
+  ros__parameters:
+    odom_topic: /ego_racecar/odom
+    scan_topic: /scan
+    drive_topic: /drive
+
+    # Tracking
+    wheelbase: 0.33
+    min_lookahead: 1.1
+    max_lookahead: 3.0
+    lookahead_gain: 0.30
+    max_target_search_distance: 7.0
+    nearest_search_window: 60
+    max_steering_angle: 0.40
+    steering_smoothing: 0.18
+
+    # Speed
+    max_speed: 3.2
+    min_speed: 0.8
+    corner_speed: 1.2
+    speed_scale: 0.55
+
+    # LiDAR safety overlay
+    enable_lidar_safety: false
+    front_safety_angle_deg: 7.0
+    emergency_stop_distance: 0.28
+    slowdown_distance: 0.75

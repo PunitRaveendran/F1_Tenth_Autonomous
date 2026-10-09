@@ -1,0 +1,43 @@
+[project]
+name = "f1tenth_gym"
+version = "1.0.0dev"
+description = "Gym environment for F1TENTH"
+authors = [
+    { name = "Hongrui Zheng" },
+    { name = "Renukanandan Tumu" },
+    { name = "Luigi Berducci" },
+    { name = "Ahmad Amine" },
+    { name = "Joseph Auckley" },
+    { name = "Matthew O'Kelly" },
+    { name = "Aman Sinha" },
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = "MIT"
+maintainers = [{ name = "Hongrui Zheng" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "gymnasium>=0.29.1",
+    "numpy>=1.18",
+    "pillow>=9.1.0",
+    "scipy>=1.13.0",
+    "numba>=0.55.2",
+    "PyYAML>=5.3.1",
+    "yamldataclassconfig>=1.5.0,<2",
+    "requests>=2.31.0,<3",
+]
+
+[project.urls]
+Homepage = "https://f1tenth.org"
+Repository = "https://github.com/f1tenth/f1tenth_gym"
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["f1tenth_gym*"]

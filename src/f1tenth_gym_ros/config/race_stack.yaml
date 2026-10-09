@@ -1,0 +1,27 @@
+race_state_machine_node:
+  ros__parameters:
+    scan_topic: /scan
+    drive_topic: /drive
+    state_topic: /race/state
+    pure_pursuit_drive_topic: /race/pure_pursuit_drive
+    gap_follow_drive_topic: /race/gap_follow_drive
+    head_to_head_drive_topic: /race/head_to_head_drive
+
+    initial_state: RACING
+    forced_state: AUTO
+    enable_gap_fallback: false
+    head_to_head_enabled: false
+
+    # Race mode: only treat very close, straight-ahead returns as obstacles.
+    # A wide cone will see normal corner walls and make the car drive like
+    # Follow-the-Gap for most of the lap.
+    front_angle_deg: 7.0
+    avoid_enter_distance: 0.65
+    avoid_exit_distance: 1.05
+    emergency_enter_distance: 0.25
+    emergency_exit_distance: 0.40
+    clear_hold_sec: 0.35
+
+    # Stop if a selected planner has gone stale.
+    command_timeout_sec: 2.00
+    publish_rate_hz: 30.0

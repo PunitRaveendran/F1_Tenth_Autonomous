@@ -1,0 +1,28 @@
+game_controller_node:
+  ros__parameters:
+    autorepeat_rate: 20.0
+    deadzone: 0.08
+    sticky_buttons: false
+
+joy_node:
+  ros__parameters:
+    autorepeat_rate: 20.0
+    deadzone: 0.08
+    sticky_buttons: false
+
+teleop_twist_joy_node:
+  ros__parameters:
+    require_enable_button: false
+    enable_turbo_button: 5
+    axis_linear:
+      x: 1
+    scale_linear:
+      x: 3.0
+    scale_linear_turbo:
+      x: 6.0
+    axis_angular:
+      yaw: 0
+    scale_angular:
+      yaw: 0.22
+    scale_angular_turbo:
+      yaw: 0.40

@@ -1,0 +1,7 @@
+numpy<2.0
+matplotlib
+trajectory_planning_helpers
+# the following is required for minimum time optimization only
+casadi
+scipy
+scikit-learn
